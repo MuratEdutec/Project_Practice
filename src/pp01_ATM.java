@@ -14,7 +14,7 @@ public class pp01_ATM {
     Sifre değiştirme işleminde mevcut şifreyi teyit ettikten sonra, sifre değişiklik işlemini yapmali,
     */
 
-    final String kartNo="1234567890123456";
+    final static String kartNo="1234567890123456";
     static Scanner scan= new Scanner(System.in);
     static String sifre="1234";
     static double bakiye=20000;
@@ -24,8 +24,6 @@ public class pp01_ATM {
 
     public static void main(String[] args) {
     giris();
-
-
     }
 
     private static void giris() {
@@ -35,7 +33,7 @@ public class pp01_ATM {
         String kSifre= scan.next();
         kkartNo=kkartNo.replaceAll("\\s","");
 
-        if (kSifre.equals(sifre) && kkartNo.equals(kkartNo)){
+        if (kSifre.equals(sifre) && kkartNo.equals(kartNo)){
             System.out.println("ok");
             menu();
         }
@@ -55,36 +53,142 @@ public class pp01_ATM {
         switch (secim){
             case 1:{ bakiyeSorgula();}
             case 2:{
-                System.out.println("Yatirilacak Miktari Giriniz");
+                System.out.print("Yatirilacak Miktari Giriniz ");
                 double miktar=scan.nextDouble();
                 paraYatirma(miktar);  }
             case 3:{
-                System.out.println("Cekilecek Miktari Giriniz :");
+                System.out.println("Cekilecek Miktari Giriniz : ");
                 double miktar=scan.nextDouble();
-                paracekme();
+                paracekme(miktar);
             }
-            case 4:{        }
-            case 5:{        }
-            case 6:{        }
+            case 4:{
+                System.out.println("IBAN GIRINIZ ");
+                String iban=scan.nextLine();
+                scan.nextLine();
+                System.out.println("Gonderilecek Miktari Giriniz ");
+                double miktar=scan.nextDouble();
+                paraGonderme(ibanKontrol(iban), miktar);
+            }
+            case 5:{
+                sifreDegistir();
+            }
+            case 6:{
+                System.out.println("***** HOSCAKALIN *****");
+                System.exit(0);
+            }
 
      }
-
-
-
 }
 
-    private static void paracekme() {
+    private static void sifreDegistir() {    ////////////TAM DEGILLLL
+        System.out.println("Eski Sifrenizi Giriniz");
+        String kSifre=scan.nextLine();
+        if(kSifre.equals(sifre)){
+            System.out.println("Yeni Sifre Giriniz ");
+            sifre=scan.next();
+            giris();
+
+        }else{
+            System.out.println("Dorgru Sifre Giriniz ");
+            sifreDegistir();
+        }
+    }
+
+    private static String ibanKontrol(String iban) {
+
+        iban=iban.replaceAll("\\s","");
+
+        if (iban.startsWith("Tr") && iban.length() == 26){
+
+        }
+        else{
+            System.out.println("Gecerli Iban Giriniz : ");
+            String iban2=scan.nextLine();
+            ibanKontrol(iban2);
+        //ibanKontrol(scan.nextLine());
+        }
+        return iban;
+    }
+
+    private static void paraGonderme(String iban, double miktar ) {
+
+        if (miktar <= bakiye){
+            bakiye -=miktar;
+            System.out.println(iban + " Nolu IBANA " + miktar + " Gonderildi");
+            bakiyeSorgula();
+
+        }else {
+            System.out.println("Gecerli Miktar Giriniz!");
+            paraGonderme(iban,scan.nextDouble());
+        }
+        //TR12 1213 1415 1516 1718 1920 22
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private static void paracekme(double miktar) {
+        if (miktar <= bakiye){
+            bakiye -= miktar;
+            bakiyeSorgula();
+
+        }else {
+            System.out.println("Gecerli Miktar Giriniz!");
+            paracekme(scan.nextDouble());
+        }
     }
 
     private static void paraYatirma(double miktar) {
         bakiye+=miktar;
         bakiyeSorgula();
-        menu();
+
 
     }
 
     private static void bakiyeSorgula() {
-        System.out.println("Bakiyeniz: " + bakiye);
+        System.out.println("===>>> Bakiyeniz: " + bakiye+" <<<===");
 
     }
     }
