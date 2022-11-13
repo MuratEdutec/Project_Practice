@@ -111,7 +111,7 @@ public class Atm {
         private static String ibanKontrol(String iban) {
             iban = iban.replaceAll("\\s", "");
             if (iban.startsWith("TR") && iban.length() == 26) {
-
+                System.out.println(iban);
             } else {
                 System.out.println("GECERLI IBAN GIRINIZ: ");
                 //String iban2 = scan.nextLine();
