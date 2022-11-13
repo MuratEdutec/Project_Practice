@@ -29,6 +29,7 @@ public class pp01_ATM {
     private static void giris() {
         System.out.println("Kart Numarasi Giriniz ");
         String kkartNo= scan.nextLine();
+        scan.nextLine();
         System.out.println("Sife Giriniz");
         String kSifre= scan.next();
         kkartNo=kkartNo.replaceAll("\\s","");
@@ -80,37 +81,75 @@ public class pp01_ATM {
      }
 }
 
-    private static void sifreDegistir() {    ////////////TAM DEGILLLL
-        System.out.println("Eski Sifrenizi Giriniz");
-        String kSifre=scan.nextLine();
-        if(kSifre.equals(sifre)){
-            System.out.println("Yeni Sifre Giriniz ");
-            sifre=scan.next();
+    private static void sifreDegistir() {
+        System.out.println("Eski sifrenizi giriniz: ");
+        String kSifre= scan.next();
+        if (kSifre.equals(sifre)){
+            System.out.println("Yeni sifresnizi giriniz");
+            sifre= scan.next();
             giris();
-
-        }else{
-            System.out.println("Dorgru Sifre Giriniz ");
+        }else {
+            System.out.println("Dogru Sifre Giriniz");
             sifreDegistir();
         }
     }
 
+
+    //TR12 1213 1415 1516 1718 1920 22
+
+
+
+
     private static String ibanKontrol(String iban) {
+        iban = iban.replaceAll("\\s", "");
+        if (iban.startsWith("TR") && iban.length() == 26) {
 
-        iban=iban.replaceAll("\\s","");
-
-        if (iban.startsWith("Tr") && iban.length() == 26){
-
-        }
-        else{
-            System.out.println("Gecerli Iban Giriniz : ");
-            String iban2=scan.nextLine();
-            ibanKontrol(iban2);
-        //ibanKontrol(scan.nextLine());
+        } else {
+            System.out.println("GECERLI IBAN GIRINIZ: ");
+            //String iban2 = scan.nextLine();
+            //ibanKontrol(iban2);
+            scan.nextLine();
+            ibanKontrol(scan.nextLine());
         }
         return iban;
-    }
+        }
 
-    private static void paraGonderme(String iban, double miktar ) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private static void paraGonderme(String iban, double miktar) {
 
         if (miktar <= bakiye){
             bakiye -=miktar;
@@ -119,56 +158,11 @@ public class pp01_ATM {
 
         }else {
             System.out.println("Gecerli Miktar Giriniz!");
-            paraGonderme(iban,scan.nextDouble());
+            paraGonderme(iban, scan.nextDouble());
         }
         //TR12 1213 1415 1516 1718 1920 22
 
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private static void paracekme(double miktar) {
         if (miktar <= bakiye){
             bakiye -= miktar;
@@ -179,14 +173,11 @@ public class pp01_ATM {
             paracekme(scan.nextDouble());
         }
     }
-
     private static void paraYatirma(double miktar) {
         bakiye+=miktar;
         bakiyeSorgula();
 
-
     }
-
     private static void bakiyeSorgula() {
         System.out.println("===>>> Bakiyeniz: " + bakiye+" <<<===");
 
