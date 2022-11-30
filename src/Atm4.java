@@ -32,6 +32,8 @@ public class Atm4 {
         girilenKartNo = girilenKartNo.replaceAll("\\s", "");
         System.out.println("Sifreniz");
         String girilenSifre = scan.nextLine();
+        //girilenSifre.hashCode();
+
         if (girilenKartNo.equalsIgnoreCase(kartNo) && girilenSifre.equalsIgnoreCase(sifre)) {
             menu();
         } else {
